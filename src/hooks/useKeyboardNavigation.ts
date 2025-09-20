@@ -31,8 +31,31 @@ export const useKeyboardNavigation = (options: UseKeyboardNavigationOptions = {}
           break;
           
         case 'ArrowDown':
+          event.preventDefault();
+          if (currentIndex < focusableArray.length - 1) {
+            focusableArray[currentIndex + 1]?.focus();
+          } else if (wrap && focusableArray.length > 0) {
+            focusableArray[0]?.focus();
+          }
+          break;
+          
         case 'Enter':
           event.preventDefault();
+          const activeElement = document.activeElement as HTMLElement;
+          
+          // If it's a select element, open it
+          if (activeElement.tagName === 'SELECT') {
+            activeElement.click();
+            return;
+          }
+          
+          // If it's a button, click it
+          if (activeElement.tagName === 'BUTTON') {
+            activeElement.click();
+            return;
+          }
+          
+          // For other elements, move to next focusable element
           if (currentIndex < focusableArray.length - 1) {
             focusableArray[currentIndex + 1]?.focus();
           } else if (wrap && focusableArray.length > 0) {
