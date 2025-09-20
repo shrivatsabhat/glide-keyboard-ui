@@ -48,6 +48,36 @@ export const useKeyboardNavigation = (options: UseKeyboardNavigationOptions = {}
             focusableArray[focusableArray.length - 1]?.focus();
           }
           break;
+
+        case 'ArrowLeft':
+          event.preventDefault();
+          // Navigate to previous sibling element or group
+          const currentElement = document.activeElement as HTMLElement;
+          const parentRow = currentElement.closest('[data-row]');
+          if (parentRow) {
+            const rowElements = parentRow.querySelectorAll(selector);
+            const rowArray = Array.from(rowElements) as HTMLElement[];
+            const rowIndex = rowArray.indexOf(currentElement);
+            if (rowIndex > 0) {
+              rowArray[rowIndex - 1]?.focus();
+            }
+          }
+          break;
+
+        case 'ArrowRight':
+          event.preventDefault();
+          // Navigate to next sibling element or group
+          const currentEl = document.activeElement as HTMLElement;
+          const parentRowRight = currentEl.closest('[data-row]');
+          if (parentRowRight) {
+            const rowElementsRight = parentRowRight.querySelectorAll(selector);
+            const rowArrayRight = Array.from(rowElementsRight) as HTMLElement[];
+            const rowIndexRight = rowArrayRight.indexOf(currentEl);
+            if (rowIndexRight < rowArrayRight.length - 1) {
+              rowArrayRight[rowIndexRight + 1]?.focus();
+            }
+          }
+          break;
           
         case 'Home':
           event.preventDefault();

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
+import { useNavigate } from 'react-router-dom';
 import FormHeader from './FormHeader';
 import FormSection from './FormSection';
 import FormField from './FormField';
@@ -49,6 +50,7 @@ interface DeductorFormData {
 }
 
 const DeductorForm: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<DeductorFormData>({
     tan: '',
     pan: '',
@@ -391,8 +393,17 @@ const DeductorForm: React.FC = () => {
         </div>
 
         {/* Form Actions */}
-        <div className="flex justify-center gap-4 pt-6">
+        <div className="flex justify-center gap-4 pt-6 border-t border-border">
           <Button variant="outline">Reset</Button>
+          <Button variant="outline" onClick={() => navigate('/deductees')}>
+            Go to Deductees
+          </Button>
+          <Button variant="outline" onClick={() => navigate('/deductions')}>
+            Go to Deductions
+          </Button>
+          <Button variant="outline" onClick={() => navigate('/challans')}>
+            Go to Challans
+          </Button>
           <Button>Save & Continue</Button>
         </div>
       </div>
